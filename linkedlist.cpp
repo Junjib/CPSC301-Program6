@@ -27,44 +27,52 @@ int linkedlist::count()
 void linkedlist::addToFront(int n)
 {
   node *newNode = new node;
-  node *temp = nullptr;
+
   if(head == nullptr)
   {
     newNode->data = n;
     head = newNode;
+    printList(head);
+    return;
   }
-  else
+
+  node *prev = nullptr;
+  for(prev = head; prev != nullptr; prev = prev->next)
   {
-    newNode->data = n;
-    if(newNode->data < head->data)
+    if(n < head->data)
     {
+      newNode->data = n;
       newNode->next = head;
       head = newNode;
+      printList(head);
+      break;
     }
-    if(newNode->data > head->data)
+    else if(prev->next == nullptr)
     {
-      if(head->next == nullptr)
-      {
-        head->next = newNode;
-      }
-      else if(newNode->data < head->next->data)
-      {
-        temp = head->next;
-        head->next = newNode;
-        newNode->next = temp;
-      }
+      newNode->data = n;
+      prev->next = newNode;
+      printList(head);
+      break;
+    }
+    else if(n >= prev->data && prev->next != nullptr && n < prev->next->data)
+    {
+      insert(prev, n);
+      printList(head);
+      break;
     }
   }
-  for(node *test = head; test != nullptr; test = test->next)
-  {
-    cout << test->data << " ";
-  }
-  cout << endl;
 }
 
 double linkedlist::average()
 {
     // uses sum and count functions
+    int size = 0;
+    int sumOfList = 0;
+    size = count();
+    sumOfList = sum();
+    cout << size << endl;
+    //cout << sumOfList << endl;
+    return 0.0;
 }
 
 int linkedlist::sum()
@@ -77,8 +85,8 @@ int linkedlist::sum()
     }
     else
     {
-      return listSum + sum();
       head = head->next;
+      return (listSum + sum());
     }
 }
 
@@ -90,4 +98,22 @@ void linkedlist::writeInorder(string & file)
 void linkedlist::writeReversed(string & file)
 {
     // RECURSIVE
+}
+
+void linkedlist::printList(node* &head)
+{
+  for(node *testA = head; testA != nullptr; testA = testA->next)
+  {
+    cout << testA->data << " ";
+  }
+  cout << endl;
+}
+
+void linkedlist::insert(node* &prev, int num)
+{
+  node *newNode = new node;
+  newNode->data = num;
+  newNode->next = prev->next;
+  prev->next = newNode;
+  return;
 }

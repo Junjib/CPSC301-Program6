@@ -24,8 +24,10 @@ int main()
 {
   string file = "list.txt";
   linkedlist newList;
+  double average = 0.0;
 
   readFile(newList, file);
+  average = newList.average();
 
     return 0;
 }

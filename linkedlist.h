@@ -16,6 +16,8 @@ private:
     node * head;
     int count(); // RECURSIVE
     int sum(); // RECURSIVE
+    void printList(node* &head);
+    void insert(node* &prev, int num);
 
 public:
     linkedlist();
