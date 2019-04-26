@@ -28,6 +28,8 @@ int main()
 
   readFile(newList, file);
   average = newList.average();
+  //newList.writeInorder(file);
+  //newList.writeReversed(file);
 
     return 0;
 }
