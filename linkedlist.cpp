@@ -8,6 +8,8 @@ linkedlist::linkedlist()
 linkedlist::~linkedlist()
 {
     // RECURSIVE
+    head = headBackup;
+    deleteNode(head);
 }
 
 int linkedlist::count()
@@ -32,7 +34,6 @@ void linkedlist::addToFront(int n)
   {
     newNode->data = n;
     head = newNode;
-    //printList(head);
     return;
   }
 
@@ -44,20 +45,17 @@ void linkedlist::addToFront(int n)
       newNode->data = n;
       newNode->next = head;
       head = newNode;
-      //printList(head);
       return;
     }
     else if(prev->next == nullptr)
     {
       newNode->data = n;
       prev->next = newNode;
-      //printList(head);
       return;
     }
     else if(n >= prev->data && prev->next != nullptr && n < prev->next->data)
     {
       insert(prev, n);
-      //printList(head);
       return;
     }
   }
@@ -66,25 +64,25 @@ void linkedlist::addToFront(int n)
 double linkedlist::average()
 {
     // uses sum and count functions
-    //printList(head);
-    int size = count();
+    headBackup = head;
     int sumOfList = sum();
-    cout << size << endl;
-    cout << sumOfList << endl;
-    return 0.0;
+    resetHead(headBackup);
+    int size = count();
+    resetHead(headBackup);
+    return (double(sumOfList) / (size));
 }
 
 int linkedlist::sum()
 {
     // RECURSIVE
-    if(head == nullptr)
-    {
-      return 0;
-    }
-    else
+    if(head->next != nullptr)
     {
       head = head->next;
       return (head->data + sum());
+    }
+    else
+    {
+      return headBackup->data;
     }
 }
 
@@ -121,7 +119,7 @@ void linkedlist::writeReversed(string & file)
     }
 }
 
-void linkedlist::printList(node* &head)
+void linkedlist::printList(node* head)
 {
   for(node *testA = head; testA != nullptr; testA = testA->next)
   {
@@ -130,11 +128,30 @@ void linkedlist::printList(node* &head)
   cout << endl;
 }
 
-void linkedlist::insert(node* &prev, int num)
+void linkedlist::insert(node* prev, int num)
 {
   node *newNode = new node;
   newNode->data = num;
   newNode->next = prev->next;
   prev->next = newNode;
   return;
+}
+
+void linkedlist::deleteNode(node* head)
+{
+  if(head->next == nullptr)
+  {
+    delete head;
+    return;
+  }
+  else
+  {
+    deleteNode(head->next);
+    delete head;
+  }
+}
+
+void linkedlist::resetHead(node* headBackup)
+{
+  head = headBackup;
 }

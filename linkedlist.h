@@ -6,18 +6,23 @@
 
 using namespace std;
 
-struct node {
+struct node
+{
     int data;
     node * next;
 };
 
-class linkedlist {
+class linkedlist
+{
 private:
     node * head;
+    node * headBackup;
     int count(); // RECURSIVE
     int sum(); // RECURSIVE
-    void printList(node* &head);
-    void insert(node* &prev, int num);
+    void printList(node* head);
+    void insert(node* prev, int num);
+    void deleteNode(node* head);
+    void resetHead(node* headBackup);
 
 public:
     linkedlist();

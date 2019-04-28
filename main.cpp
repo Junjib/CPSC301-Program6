@@ -15,9 +15,7 @@ void readFile(linkedlist & list, string & file)
   {
     list.addToFront(number);
   }
-
   readData.close();
-  cout << endl;
 }
 
 int main()
@@ -28,8 +26,9 @@ int main()
 
   readFile(newList, file);
   average = newList.average();
-  //newList.writeInorder(file);
-  //newList.writeReversed(file);
+  cout << "The average is: " << average << endl;
+  newList.writeInorder(file);
+  newList.writeReversed(file);
 
-    return 0;
+  return 0;
 }
