@@ -69,7 +69,7 @@ double linkedlist::average()
     resetHead(headBackup);
     int size = count();
     resetHead(headBackup);
-    return (double(sumOfList) / (size));
+    return (double(sumOfList) / double(size));
 }
 
 int linkedlist::sum()
